@@ -2,17 +2,15 @@
 
 ![Vulcanexus](https://img.shields.io/badge/Vulcanexus-Humble-00214c?style=for-the-badge&logo=ros)
 ![License](https://img.shields.io/badge/License-AGPL%20v3.0-orange?style=for-the-badge&logo=gnu&logoColor=white)
-![Build Status](https://img.shields.io/badge/build-passing-brightgreen?style=for-the-badge&logo=github-actions&logoColor=white)
+![Build Status](https://img.shields.io/badge/build-manual-lightgrey?style=for-the-badge&logo=github-actions&logoColor=white)
 ![Docker](https://img.shields.io/badge/Docker-Ready-2496ED?style=for-the-badge&logo=docker&logoColor=white)
 
 ## Table of Contents
 
 - [Overview](#overview)
+- [Supported Setup](#supported-setup)
 - [File Structure](#file-structure)
-- [Launch Arguments](#launch-arguments)
-- [Installation](#installation)
-- [Usage](#usage)
-- [Supported Distribution](#supported-distribution)
+- [Contact Information](#contact-information)
 - [License](#license)
 
 
@@ -37,110 +35,51 @@ Any UWB workers **not** associated with a visual detection are still published. 
 * Obscured by an obstacle.
 * In low-light conditions where YOLO fails.
 
+## Supported Setup
+
+| Category | Tested On | Expected Compatibility | Not Supported / Unknown |
+| :--- | :--- | :--- | :--- |
+| **Middleware & OS** | **Vulcanexus Humble** (Ubuntu 22.04 LTS) utilizing **Fast DDS** as the default RMW middleware layer | Standard ROS 2 Humble setups | Older ROS distributions (e.g., Foxy, Galactic) or ROS 1 |
+| **Sensors** | **Intel RealSense D455** & **Bpearl 3D Lidar** | Any RGB-D sensor or Lidar providing standardized PointCloud2 data streams | Monocular 2D webcams (lacking spatial depth parameters) |
 
 ## File Structure
+
 ```text
 human_detection_fusion/
+├── docker/
+│   ├── Docker-Install.md               # Docker Installation and Launch Manual
+│   ├── Dockerfile                      # Dockerfile based on Vulcanexus image
+│   ├── run_kiro_hri_exec.bash          # Script to launch the Docker Container
+│   └── setup_hri_exec.sh               # Script to build the Docker Container
+├── docs/
+│   ├── 01_arise_context.md             # ARISE Ecosystem Context & Core Integration
+│   ├── 02_interfaces.md                # Interface Documentation
+│   ├── 03_installation.md              # Installation and Usage Guide
+│   ├── 04_launch_ros_nodes.md          # ROS2 Launch Arguments
+│   └── 05_role_in_demonstrator.md      # Role in the TRL 6-7 Demonstrator
 ├── include/
 │   └── human_detection_fusion/
 │           ├── cohan_msg_bridge.hpp 
 │           └── fusion_utils.hpp
 ├── launch/
 │   └── msgBridge.launch.py             # Main system launch file
+├── media/                              # Images 
 ├── src/
 │   └── cohan_msg_bridge.cpp            # Main fusion logic
+├── .gitignore
 ├── CMakeLists.txt                      # Build configuration
+├── LICENSE                             # License information
 ├── package.xml                         # Package metadata and dependencies
-├── README.md                           # Documentation
-└── LICENSE                             # License information
+└── README.md                           # Overview of the ARISE KIRO specific package
 ```
 
-## Launch Arguments
-### 1. Coordinate Frames
-These parameters define the spatial context of the handover.
+## Contact Information
 
-| Argument | Default Value | Description |
-| :--- | :--- | :--- |
-| `planning_frame` | `kiro_base_link` | The planning reference frame for fusion. |
-| `use_sim_time` | `false` | Use simulation (Gazebo) clock if true. |
-| `debug` | `false` | Enable debug mode. |
+For queries regarding the development, replication, or integration of this calculation module within the ARISE framework, feel free to reach out:
 
-### 2. YOLO Detection Module
-Responsible for human tracking.
-
-| Argument | Default Value | Description |
-| :--- | :--- | :--- |
-| `input_topic` | `/camera/camera/color/image_raw/compressed` | Camera input topic for human tracking. |
-| `camera_info_topic` | `/camera/camera/color/camera_info` | Camera info. |
-| `lidar_topic` | `/bpearl_lidar/points` | 3D Lidar input topic for human tracking. |
-
-
-## Installation
-
-### 1. Docker Container (Recommended)
-For the most stable experience, we recommend using our pre-configured Docker environment.
-* Refer to the [ARISE KIRO Docker Repository](https://github.com/andvatistas/ARISE-KIRO-reusable-modules) for setup assistance.
-* Follow the provided `README.md` within that repository to pull the image and launch the container.
-
-### 2. Building from Source
-**Note**: Building from source has not been fully tested in all environments. We strongly recommend using the Docker version above.
-
-#### Prerequisites
-Ensure you are running **ROS 2 Humble**, preferably on the **Vulcanexus** image.
-
-#### Setup Workspace
-Clone the repositories into your ROS 2 workspace `src` folder:
-
-```bash
-cd ~/ros2_ws/src
-```
-
-```bash
-# CoHAN Planner (need this for cohan_msgs package)
-git clone -b v2 https://github.com/sphanit/CoHAN-Nav2.git
-```
-
-```bash
-# Ultralytics ROS Node
-GIT_LFS_SKIP_SMUDGE=1 git clone -b feature-rotated-image https://github.com/nikolaslps/ultralytics_ros.git
-```
-
-```bash
-# Humand Detection Fusion Node
-git clone https://github.com/nikolaslps/human_detection_fusion.git
-```
-
-Install Dependencies
-```bash
-cd ~/ros2_ws
-sudo rosdep init # May not be necessary
-rosdep update
-apt-get update
-rosdep install --from-paths src --ignore-src -y -r --rosdistro humble
-```
-
-Download the python requirements for the `ultralytics_ros` package
-```bash
-cd ~/ros2_ws/src/ultralytics_ros/
-pip install -r requirements.txt
-```
-
-Build the packages by running the following from inside the `ros2_ws`:
-```bash
-cd ~/ros2_ws
-colcon build --symlink-install --packages-select ultralytics_ros cohan_msgs human_detection_fusion
-source install/setup.bash
-```
-
-## Usage 
-
-Launch the detection nodes by running:
-```bash
-ros2 launch human_detection_fusion msgBridge.launch.py
-```
-
-## Supported Distribution
-* **ROS 2 Humble on Vulcanexus image**
+* **Module Developer:** Nikolaos Lappas
+* **GitHub:** [nikolaslps](https://github.com/nikolaslps)
+* **Email:** [nikolas.lappas.2003@gmail.com](mailto:nikolas.lappas.2003@gmail.com)
 
 ## License
 This project is licensed under the **GNU Affero General Public License v3.0**. See the [LICENSE](LICENSE) file for details.
