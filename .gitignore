@@ -1,0 +1,18 @@
+# Exclude the docker container
+human_detect_ws/
+
+# Python caching
+**/__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+.vscode/
+.idea/
+.DS_Store
+
+docs/01_arise_context.md
+docs/02_interfaces.md
+docs/05_role_in_demonstrator.md
+
+media/
