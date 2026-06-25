@@ -37,7 +37,8 @@ def generate_launch_description():
             'debug': LaunchConfiguration('debug'),
             'input_topic': '/camera/camera/color/image_raw/compressed',
             'camera_info_topic': '/camera/camera/color/camera_info',
-            'lidar_topic': '/bpearl_lidar/points'
+            'lidar_topic': '/bpearl_lidar/points',
+            'min_cluster_size': '10'
         }.items()
     )
 

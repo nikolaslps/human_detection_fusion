@@ -1,6 +1,7 @@
 #pragma once
 
 #include <rclcpp/rclcpp.hpp>
+#include "rclcpp/parameter_client.hpp"
 #include <vision_msgs/msg/detection3_d_array.hpp>
 #include <geometry_msgs/msg/point.hpp>
 #include <std_msgs/msg/string.hpp>
@@ -40,6 +41,9 @@ private:
     std::shared_ptr<tf2_ros::Buffer> tf_buffer_;
     std::shared_ptr<tf2_ros::TransformListener> tf_listener_;
 
+    std::shared_ptr<rclcpp::AsyncParametersClient> tracker_param_client_;
+    void update_tracker_classes();
+    
     rclcpp::Subscription<vision_msgs::msg::Detection3DArray>::SharedPtr subscription_;
     rclcpp::Publisher<cohan_msgs::msg::TrackedAgents>::SharedPtr publisher_;
     

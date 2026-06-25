@@ -19,3 +19,4 @@ Responsible for human tracking.
 | `input_topic` | `/camera/camera/color/image_raw/compressed` | Camera input topic for human tracking. |
 | `camera_info_topic` | `/camera/camera/color/camera_info` | Camera info. |
 | `lidar_topic` | `/bpearl_lidar/points` | 3D Lidar input topic for human tracking. |
+| `min_cluster_size` | `10` | Minimum threshold value for bounding box visualization. |

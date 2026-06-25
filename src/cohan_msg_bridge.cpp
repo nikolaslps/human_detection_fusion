@@ -14,6 +14,9 @@ CoHANmsgBridge::CoHANmsgBridge() : Node("cohan_msg_bridge") {
 
     publisher_ = this->create_publisher<cohan_msgs::msg::TrackedAgents>("tracked_agents", 10);
 
+    tracker_param_client_ = std::make_shared<rclcpp::AsyncParametersClient>(this, "tracker_node");
+    update_tracker_classes();
+    
     setup_uwb_subscribers();
     RCLCPP_INFO(this->get_logger(), "Bridge Node with UWB Fusion Started.");
 }
@@ -30,6 +33,26 @@ void CoHANmsgBridge::setup_uwb_subscribers() {
             "uwb/worker" + std::to_string(id) + "_name_tag", 10,
             [this, id](const std_msgs::msg::String::SharedPtr msg) { uwb_name_callback(msg, id); }));
     }
+}
+
+void CoHANmsgBridge::update_tracker_classes() {
+    if (!tracker_param_client_->wait_for_service(std::chrono::seconds(2))) {
+        RCLCPP_ERROR(this->get_logger(), "Tracker node service not found!");
+        return;
+    }
+
+    // Set the classes parameter to [0]
+    std::vector<int64_t> new_classes = {0};
+    auto future = tracker_param_client_->set_parameters(
+        {rclcpp::Parameter("classes", new_classes)},
+        [this](std::shared_future<std::vector<rcl_interfaces::msg::SetParametersResult>> future) {
+            auto results = future.get();
+            if (results[0].successful) {
+                RCLCPP_INFO(this->get_logger(), "Successfully changed classes to 0");
+            } else {
+                RCLCPP_ERROR(this->get_logger(), "Failed to set classes: %s", results[0].reason.c_str());
+            }
+        });
 }
 
 void CoHANmsgBridge::uwb_pos_callback(const geometry_msgs::msg::Point::SharedPtr msg, int id) {

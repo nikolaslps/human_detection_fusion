@@ -70,8 +70,14 @@ ros2 launch human_detection_fusion msgBridge.launch.py
 Verify a successful startup by checking that your terminal logs reflect the following sequence:
 
 ```text
-[INFO] [cohan_msg_bridge_node-3]: process started with pid [1435919]
-[cohan_msg_bridge_node-3] [INFO] [1781651929.020012749] [cohan_msg_bridge]: Bridge Node with UWB Fusion Started.
+[INFO] [launch]: All log files can be found below /root/.ros/log/2026-06-25-14-47-26-466523-Nitro-ANV16-61-1733727
+[INFO] [launch]: Default logging verbosity is set to INFO
+[INFO] [tracker_node.py-1]: process started with pid [1733728]
+[INFO] [tracker_with_cloud_node-2]: process started with pid [1733730]
+[tracker_node.py-1] YOLOv8m-seg summary (fused): 105 layers, 27,268,704 parameters, 0 gradients, 104.5 GFLOPs
+[INFO] [cohan_msg_bridge_node-3]: process started with pid [1734925]
+[cohan_msg_bridge_node-3] [INFO] [1782398866.720360208] [cohan_msg_bridge]: Bridge Node with UWB Fusion Started.
+[cohan_msg_bridge_node-3] [INFO] [1782398866.720702498] [cohan_msg_bridge]: Successfully changed classes to 0
 ```
 
 > [!IMPORTANT]
