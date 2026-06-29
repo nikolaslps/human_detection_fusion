@@ -191,7 +191,6 @@ From the IKH warehouse, where the demonstrator tests where conducted:
 
 - **Two UWB workers hardcoded**: the node subscribes to `uwb/worker1` and `uwb/worker2` only. Adding more workers requires extending `setup_uwb_subscribers()` in `src/yolo_uwb_fusion_node.cpp`.
 - **No velocity estimation**: the node publishes 3-D position per person but not velocity. Downstream planners that require velocity (e.g. CoHAN-Nav2/HATeb in `kiro_nav`) use a separate velocity estimator node.
-- ****:
 
 ## Maintainer, contact & citation
 
