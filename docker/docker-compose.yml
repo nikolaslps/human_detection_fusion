@@ -1,0 +1,29 @@
+version: "3.8"
+services:
+  human_detection_fusion:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile
+    image: human_detection_fusion:latest
+    network_mode: host
+    environment:
+      - RMW_IMPLEMENTATION=rmw_fastrtps_cpp
+      - ROS_DISCOVERY_SERVER
+      - ROS_SUPER_CLIENT
+      - DISPLAY
+      - QT_X11_NO_MITSHM=1
+      - USE_SIM_TIME=${USE_SIM_TIME:-false}
+      - INPUT_TOPIC=${INPUT_TOPIC:-/camera/camera/color/image_raw/compressed}
+      - PLANNING_FRAME=${PLANNING_FRAME:-kiro_base_link}
+      - FASTDDS_BUILTIN_TRANSPORTS=UDPv4
+    volumes:
+      - ../config:/config:ro
+      - ../launch:/launch:ro
+      - ../rviz:/rviz:ro
+      - /tmp/.X11-unix:/tmp/.X11-unix:rw
+    command: >
+      bash /launch/launch.sh
+      /config/detection_params.yaml
+      ${USE_SIM_TIME:-false}
+    stdin_open: true
+    tty: true

@@ -1,0 +1,5 @@
+human_detect_ws/
+__pycache__/
+*.pyc
+.git/
+media/screenshots/*.png

@@ -4,7 +4,7 @@
 #include <string>
 #include <cmath>
 
-namespace CoHANmsgBridge {
+namespace YoloUWBFusion {
 
 struct UWBWorker {
     geometry_msgs::msg::Point position;
@@ -19,4 +19,4 @@ public:
     }
 };
 
-} // namespace CoHANmsgBridge
+} // namespace YoloUWBFusion

@@ -1,0 +1,13 @@
+# detection_params.yaml
+# Parameters for the yolo_uwb_fusion_node.
+# Volume-mounted into the container at /config/ — edit and restart without rebuilding.
+
+yolo_uwb_fusion_node:
+  ros__parameters:
+    # planning_frame and use_sim_time are controlled by run.sh --sim flag,
+    # not set here (launch args would conflict with yaml overrides in Humble).
+    # Add fusion-specific tuning here if needed (e.g. score_threshold, fusion_distance).
+    # Frame that UWB positions are published in.
+    # Sim: "map" (HuNavSim agent positions are in map frame).
+    # Real robot: "map" if localization is running, else match planning_frame to skip transform.
+    uwb_frame: map
