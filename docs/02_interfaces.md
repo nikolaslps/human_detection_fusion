@@ -34,7 +34,7 @@ worker identity data and publishes ROS4HRI person positions.
 |---|---|---|
 | `yolo_3d_result` | `vision_msgs/Detection3DArray` | 3-D bounding boxes from `tracker_with_cloud_node`, consumed by `yolo_uwb_fusion_node`. Not an external integration point. |
 
-### Publications
+### Publishers
 
 | Topic | Type | Consumer | Notes |
 |---|---|---|---|

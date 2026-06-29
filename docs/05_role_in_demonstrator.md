@@ -5,11 +5,23 @@
 | Item | Value |
 |---|---|
 | Demonstrator | KIRO — *Demonstration of HRI-enabled solution at work* (ARISE D3) |
-| Environment | IKH facilities, **ARISTOS assembly production area** — a live shop floor with dense layouts, narrow corridors, continuous worker presence, and variable lighting (not a lab or TEF) |
+| Environment | IKH facilities, **ARISTOS assembly production area** — dense layouts, narrow corridors, continuous worker presence, and variable lighting (not a lab or TEF) |
 | Robot / platform | Custom IKH differential-drive mobile base carrying a UR10e arm |
 | End user / scenario | Shop-floor assembly workers at IKH who need on-demand tool delivery during assembly tasks |
 | System TRL | 6 |
 | Demonstrator video | **[KIRO full system demonstration](https://www.youtube.com/watch?v=uGGcSsZhrGk)** |
+
+## Structural Runtime Execution Flow
+The diagram below provides the overall flow of actions and high-level states during the execution of the KIRO collaborative task. The `human_detection_fusion` package operates during Social Navigation (phases 2, 4, and 6), detecting and tracking humans while moving.
+
+<table>
+  <tr>
+    <td align="center"><img src="../media/system_flowchart.png" alt="Internal Software Architecture Data Exchange Flows" width="1000"/></td>
+  </tr>
+  <tr>
+    <td align="center"><b>Figure 1:</b> Diagram of the robot’s workflow.</td>
+  </tr>
+</table>
 
 ## Problem the module addresses
 
@@ -34,7 +46,7 @@ FIWARE Orion-LD context broker
             ▼
 Physical sensors  +  UWB positions from FIWARE
   RealSense D455        │
-  Bpearl LiDAR         │
+  Bpearl LiDAR          │
             │           │
             ▼           ▼
   1. tracker_node (YOLO)              → /yolo_result (2-D bounding boxes + track IDs)

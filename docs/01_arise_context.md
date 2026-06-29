@@ -28,7 +28,7 @@ assembly area.
 ```
 Physical sensors        FIWARE Orion-LD context broker
   RealSense D455             │
-  Bpearl LiDAR              │   Worker entities (EMP-1, EMP-2)
+  Bpearl LiDAR               │   Worker entities (EMP-1, EMP-2)
   UWB anchor tags ──────────►│   DDS↔NGSI-LD enabler (eProsima)
                              │       │ rt/uwb/worker1[2]
                              │       │ rt/uwb/worker1[2]_name_tag

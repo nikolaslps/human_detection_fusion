@@ -45,19 +45,47 @@ Inside the container shell (via `./run.sh --shell`):
 ```bash
 # 1. Verify the ROS 2 package is built
 ros2 pkg list | grep human_detection
-# Expected: human_detection_fusion
+```
 
+>[!NOTE]
+> **Expected Output:** 
+> human_detection_fusion
+
+```bash
 # 2. Verify ultralytics / YOLO is available
 python3 -c "from ultralytics import YOLO; print('YOLO ok')"
-# Expected: YOLO ok
+```
+>[!NOTE]
+> **Expected Output:** 
+> YOLO ok
 
+```bash
 # 3. Verify hri_msgs are available
 ros2 interface show hri_msgs/msg/IdsList
-# Expected: std_msgs/Header header \n string[] ids
+```
 
+>[!NOTE]
+> **Expected Output:** 
+> This message encodes a list of ROS4HRI IDs (eg face ids, body ids, person ids...).
+> It is for instance published on /humans/faces/tracked to access the list of currently detected faces.
+> std_msgs/Header header
+>	builtin_interfaces/Time stamp
+>		int32 sec
+>		uint32 nanosec
+>	string frame_id
+>string[] ids
+
+
+```bash
 # 4. Verify the fusion executable exists
 ros2 run human_detection_fusion yolo_uwb_fusion_node --help 2>&1 | head -3
 ```
+
+>[!NOTE]
+> **Expected Output:** 
+> [ERROR] [1782753851.376840652] [yolo_uwb_fusion_node]: Tracker node service not found!
+> [INFO] [1782753851.377861540] [yolo_uwb_fusion_node]: YOLO+UWB Fusion Node started.
+
 
 All four commands succeeding confirms that the Docker image is correctly built and the full
 dependency chain is satisfied. No sensor hardware is required.
@@ -66,12 +94,12 @@ dependency chain is satisfied. No sensor hardware is required.
 
 Native installation is possible but requires building `ultralytics_ros`, `hri_msgs`, and
 `human_detection_fusion` from source against a Vulcanexus Humble install — the same steps
-`docker/Dockerfile` automates. Docker is strongly recommended. If you need a native setup, follow
+`docker/Dockerfile` automates. **Docker is strongly recommended.** If you need a native setup, follow
 the build steps in `docker/Dockerfile` as a reference script.
 
 ## Troubleshooting
 
-| Symptom | Cause / fix |
+| Problem | Cause / fix |
 |---|---|
 | Build takes very long or fails cloning dependencies | Network access required during `docker build`; retry on a stable connection. `ultralytics_ros` and `hri_msgs` are cloned from GitHub. |
 | `ros2 pkg list` is empty inside the shell | Source the workspace: `source /home/ros2_ws/install/setup.bash` |
