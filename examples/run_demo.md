@@ -16,6 +16,7 @@ This demo runs two Docker containers on the same host to verify the full detecti
 - `pmb2_hunav_simulation` cloned as a sibling directory (`../pmb2_hunav_simulation`) and checked out on the `kiro_sensors` branch:
 
 ```bash
+git clone https://github.com/andvatistas/pmb2_hunav_simulation.git ../pmb2_hunav_simulation
 git -C ../pmb2_hunav_simulation checkout kiro_sensors
 ```
 
@@ -55,7 +56,7 @@ If you prefer to run each command yourself:
 ```bash
 cd ../pmb2_hunav_simulation
 git checkout kiro_sensors
-./run.sh --detach            # builds + runs in background
+./run.sh --detach # builds + runs in background
 ```
 
 Wait ~30s for Gazebo to load and PMB2 to spawn. Confirm:
