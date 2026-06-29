@@ -38,14 +38,15 @@ def generate_launch_description():
             'input_topic': '/camera/camera/color/image_raw/compressed',
             'camera_info_topic': '/camera/camera/color/camera_info',
             'lidar_topic': '/bpearl_lidar/points',
-            'min_cluster_size': '10'
+            'min_cluster_size': '10',
+            'classes': '0',
         }.items()
     )
 
     bridge_node = Node(
         package='human_detection_fusion',
-        executable='cohan_msg_bridge_node',
-        name='cohan_msg_bridge',
+        executable='yolo_uwb_fusion_node',
+        name='yolo_uwb_fusion_node',
         output='screen',
         parameters=[{'use_sim_time': LaunchConfiguration('use_sim_time'), 'planning_frame': LaunchConfiguration('planning_frame')}]
     )

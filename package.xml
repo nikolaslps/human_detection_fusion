@@ -3,7 +3,7 @@
 <package format="3">
   <name>human_detection_fusion</name>
   <version>0.0.0</version>
-  <description>ROS 2 node for YOLO and UWB sensor fusion. It processes detections from the ultralytics_ros wrapper and performs spatial association to generate the TrackedAgents messages required by the CoHAN Social Planner.</description>
+  <description>ROS 2 node for YOLO and UWB sensor fusion. Fuses YOLO 3D detections with UWB positions and publishes to /humans/persons/... topics using hri_msgs.</description>
   <maintainer email="nikolas.lappas.2003@gmail.com">root</maintainer>
   <license>AGPL-3.0-only</license>
 
@@ -11,7 +11,7 @@
 
   <depend>rclcpp</depend>
   <depend>vision_msgs</depend>
-  <depend>cohan_msgs</depend>
+  <depend>hri_msgs</depend>
   <depend>ultralytics_ros</depend>
   <depend>tf2</depend>
   <depend>tf2_ros</depend>

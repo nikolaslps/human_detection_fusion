@@ -13,29 +13,29 @@ find_package(tf2_ros REQUIRED)
 find_package(tf2_geometry_msgs REQUIRED)
 find_package(geometry_msgs REQUIRED)
 find_package(vision_msgs REQUIRED)
-find_package(cohan_msgs REQUIRED)
+find_package(hri_msgs REQUIRED)
 find_package(ultralytics_ros REQUIRED)
 find_package(std_msgs REQUIRED)
 
 include_directories(include/${PROJECT_NAME})
 
-add_executable(cohan_msg_bridge_node 
-  src/cohan_msg_bridge.cpp
+add_executable(yolo_uwb_fusion_node
+  src/yolo_uwb_fusion_node.cpp
 )
 
-ament_target_dependencies(cohan_msg_bridge_node
+ament_target_dependencies(yolo_uwb_fusion_node
   rclcpp
   tf2
   tf2_ros
   tf2_geometry_msgs
   vision_msgs
-  cohan_msgs
+  hri_msgs
   ultralytics_ros
   std_msgs
 )
 
-install(TARGETS 
-  cohan_msg_bridge_node
+install(TARGETS
+  yolo_uwb_fusion_node
   DESTINATION lib/${PROJECT_NAME})
 
 # install public headers
@@ -43,10 +43,7 @@ install(DIRECTORY include/
   DESTINATION include/
 )
 
-# install launch files
-install(DIRECTORY launch
-  DESTINATION share/${PROJECT_NAME}/
-)
+# launch/ is volume-mounted at runtime (/launch/), not baked into the package share
 
 if(BUILD_TESTING)
   find_package(ament_lint_auto REQUIRED)
