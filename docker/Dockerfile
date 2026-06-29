@@ -55,10 +55,10 @@ RUN git clone https://github.com/nikolaslps/ultralytics_ros.git && \
 #     -e 's/duration<double>(duration))/duration<double>(std::max(duration * 2.0, 0.2)))/' \
 #     /home/human_detect_ws/src/ultralytics_ros/src/tracker_with_cloud_node.cpp
 
-COPY src/        /home/human_detect_ws/src/human_detection_fusion/src/
-COPY include/    /home/human_detect_ws/src/human_detection_fusion/include/
+COPY src/ /home/human_detect_ws/src/human_detection_fusion/src/
+COPY include/ /home/human_detect_ws/src/human_detection_fusion/include/
 COPY CMakeLists.txt /home/human_detect_ws/src/human_detection_fusion/CMakeLists.txt
-COPY package.xml    /home/human_detect_ws/src/human_detection_fusion/package.xml
+COPY package.xml /home/human_detect_ws/src/human_detection_fusion/package.xml
 
 WORKDIR /home/human_detect_ws
 RUN . /opt/vulcanexus/humble/setup.bash && \
